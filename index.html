@@ -160,7 +160,7 @@ $('w').style.height='300px';$('w').srcdoc=mock(k);drawRx();
 const acts=[];if(f.live)acts.push('<button class="pr" id="live">✨ Оживить канал</button>');(f.more||[]).forEach((m,i)=>acts.push('<button data-m="'+i+'">'+m[0]+'</button>'));acts.push('<button id="reset">↺ Сначала</button>');
 $('acts').innerHTML=acts.join('');
 if(f.live)$('live').onclick=live;$('reset').onclick=reset;$('acts').querySelectorAll('[data-m]').forEach(b=>b.onclick=()=>{haptic('impact','medium');f.more[+b.dataset.m][1]()});
-try{history.replaceState(null,'','#'+k)}catch(e){}}
+try{history.replaceState(null,'',location.pathname+'?w='+k+location.hash)}catch(e){}}
 function live(){const b=$('live');if(liveId){stopLive();return}b.classList.add('on');b.textContent='● Канал оживает…';haptic('impact','medium');let n=0;
 liveId=setInterval(()=>{F[cur].live();send();if(++n>24)stopLive()},650)}
 function stopLive(){clearInterval(liveId);liveId=0;const b=$('live');if(b){b.classList.remove('on');b.textContent='✨ Оживить канал'}}
@@ -182,7 +182,7 @@ else if(/start=q/.test(u)){S.tree.tk++;toast('Бот проверит подпи
 $('tabs').innerHTML=ORDER.map(k=>'<button data-k="'+k+'">'+F[k].tab+'</button>').join('');
 $('tabs').querySelectorAll('button').forEach(b=>b.onclick=()=>{haptic('selection');open(b.dataset.k)});
 try{tg.onEvent('themeChanged',()=>{theme();open(cur)})}catch(e){}
-open((inTg&&tg.initDataUnsafe&&tg.initDataUnsafe.start_param)||location.hash.slice(1)||'tree');
+open(new URLSearchParams(location.search).get('w')||(inTg&&tg.initDataUnsafe&&tg.initDataUnsafe.start_param)||location.hash.slice(1).split('&')[0]||'tree');
 </script>
 </body>
 </html>
